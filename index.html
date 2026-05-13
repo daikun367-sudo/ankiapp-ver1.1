@@ -3,15 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>江戸〜幕末 語句暗記</title>
+<title>中間考査 予想問題</title>
 <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: #08080f; }
+body { background: #07070e; }
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #334; border-radius: 4px; }
 </style>
 </head>
@@ -19,522 +18,296 @@ body { background: #08080f; }
 <div id="root"></div>
 <script type="text/babel">
 const { useState, useRef } = React;
- 
-const UNITS = [
+
+const SECTIONS = [
   {
-    id: "genroku", label: "江戸文化①（元禄文化）", icon: "🎭", color: "#9b59b6",
-    cards: [
-      { no: 402, word: "元禄文化", desc: "17世紀末〜18世紀はじめ、6代将軍綱吉の時代を中心に栄えた町人文化。おもに上方を中心に発達し、俳諧・浄瑠璃・浮世絵などが花開いた。", type:"concept" },
-      { no: 403, word: "上方", desc: "京都・大阪とその周辺の地域をさす呼び方。江戸時代には、元禄文化が栄えた。", type:"place" },
-      { no: 404, word: "井原西鶴", desc: "江戸時代中期の浮世草子作家。町人の生活や欲望のありままの姿を「浮世草子」とよばれる小説に著した。代表作は「好色一代男」「日本永代蔵」。", type:"person" },
-      { no: 405, word: "浮世草子", desc: "江戸時代の小説の一種。17世紀末の井原西鶴の「好色一代男」を最初に、約100年間上方で栄えた。武士や町人の現実生活などをありのまま描いた。", type:"work" },
-      { no: 406, word: "近松門左衛門", desc: "江戸時代中期の人形浄瑠璃・歌舞伎の台本作家。義理と人情の板挟みに悩む男と女の姿をえがき、人々に大きな感動を与えた。代表作は「曽根崎心中」。", type:"person" },
-      { no: 407, word: "松尾芭蕉", desc: "江戸時代前期の俳人。伊賀上野（三重県）から江戸にでて本格的に俳諧をまなび、芸術性豊かな文学に高めた。代表作は「奥の細道」「笈の小文」。", type:"person" },
-      { no: 408, word: "俳諧", desc: "五・七・五の17音で自然や感情を表現する短い詩。室町時代の連歌から分かれて始まったが、元禄時代に松尾芭蕉によって芸術まで高められた。", type:"concept" },
-      { no: 409, word: "奥の細道", desc: "松尾芭蕉の俳諧紀行文。弟子の曽良をともなって、江戸から東北地方・北陸地方をへて大垣（岐阜県）に至るまでの5ヶ月間にわたる旅日記。", type:"work" },
-      { no: 410, word: "尾形光琳", desc: "江戸時代中期の画家・工芸家。大和絵風のはなやかな装飾画を大成した。代表作は「紅白梅図屏風」「燕子花図屏風」「八橋蒔絵すずり箱」。", type:"person" },
-      { no: 411, word: "浮世絵", desc: "江戸時代の風俗画。町人の風俗や役者・力士などを題材にしてえがかれ、元禄時代に菱川師宣によって大成された。", type:"concept" },
-      { no: 412, word: "菱川師宣", desc: "江戸時代前期の浮世絵師。町人や役者を題材に、風俗画に新しい様式を加えて浮世絵として大成した。代表作は「見返り美人図」。", type:"person" },
-    ],
+    id: "kaikaku", label: "四大改革", icon: "🏯", color: "#c0392b",
+    questions: [
+      { q: "享保の改革を行った人物は誰か？", choices: ["徳川吉宗","松平定信","水野忠邦","田沼意次"], a: "徳川吉宗", exp: "8代将軍・徳川吉宗が享保の改革を行った。目安箱の設置や公事方御定書の制定などを実施した。" },
+      { q: "寛政の改革を行った老中は誰か？", choices: ["松平定信","水野忠邦","田沼意次","徳川吉宗"], a: "松平定信", exp: "松平定信が寛政の改革を行い、農村復興・出稼ぎ制限・昌平坂学問所の設置などを実施した。" },
+      { q: "天保の改革を行った老中は誰か？", choices: ["水野忠邦","松平定信","田沼意次","徳川吉宗"], a: "水野忠邦", exp: "水野忠邦が天保の改革を行い、株仲間の解散・出稼ぎ禁止などを実施したが失敗した。" },
+      { q: "目安箱を設置したのはどの改革か？", choices: ["享保の改革","寛政の改革","天保の改革","田沼の政治"], a: "享保の改革", exp: "目安箱は享保の改革で徳川吉宗が設置した。市民の意見を政治に反映させるための制度。" },
+      { q: "株仲間を解散させたのはどの改革か？", choices: ["天保の改革","享保の改革","寛政の改革","田沼の政治"], a: "天保の改革", exp: "水野忠邦が天保の改革で株仲間を解散させた。物価引き下げが目的だったが失敗に終わった。" },
+      { q: "株仲間を公認して税を取った老中は誰か？", choices: ["田沼意次","松平定信","水野忠邦","徳川吉宗"], a: "田沼意次", exp: "田沼意次は株仲間を公認し税を取ることで財政再建を図った。わいろ政治と批判された。" },
+      { q: "旗本・御家人の借金を帳消しにした改革はどれか？", choices: ["寛政の改革","享保の改革","天保の改革","田沼の政治"], a: "寛政の改革", exp: "寛政の改革で松平定信が棄捐令を出し、旗本・御家人の借金を帳消しにした。" },
+      { q: "四大改革の正しい順番はどれか？", choices: ["享保→田沼→寛政→天保","享保→寛政→田沼→天保","田沼→享保→寛政→天保","寛政→享保→田沼→天保"], a: "享保→田沼→寛政→天保", exp: "享保の改革（吉宗）→田沼の政治（意次）→寛政の改革（定信）→天保の改革（忠邦）の順。" },
+      { q: "享保の改革で、大名に米を献上させる代わりに参勤交代の江戸滞在を短縮した制度は？", choices: ["上米の制","棄捐令","株仲間の解散","上知令"], a: "上米の制", exp: "上米の制は享保の改革で設けられた。大名に石高1万石につき米100石を献上させる代わりに参勤交代の滞在期間を半年に短縮した。" },
+      { q: "天保の改革で江戸・大阪周辺の大名・旗本の領地を幕府領にしようとした政策は？", choices: ["上知令","棄捐令","上米の制","囲い米"], a: "上知令", exp: "上知令は天保の改革での政策だが、大名・旗本の反対で失敗し水野忠邦は失脚した。" },
+    ]
   },
   {
-    id: "kyoho", label: "享保の改革", icon: "🏯", color: "#c0392b",
-    cards: [
-      { no: 413, word: "享保の改革", desc: "江戸時代中期、8代将軍徳川吉宗がおこなった幕政改革。上米の制・足高の制・公事方御定書の制定・目安箱の設置などをおこなった。", type:"concept" },
-      { no: 414, word: "徳川吉宗", desc: "江戸幕府8代将軍。紀伊（和歌山県）徳川家から将軍となった。家康時代を理想に享保の改革をおこなった。米の価格安定に力を注いだので米将軍とよばれた。", type:"person" },
-      { no: 415, word: "公事方御定書", desc: "徳川吉宗がつくらせた幕府の基本法典。それまで慣習にたよっていた裁判制度などを改めるため、これまでの幕府の法令や裁判の結果をまとめたもの。", type:"work" },
-      { no: 416, word: "上米の制", desc: "幕府財政難解決のため実施した制度。大名に石高1万石につき米100石を献上させるかわりに、参勤交代の江戸滞在期間を半年に短縮して大名の負担を軽くした。", type:"concept" },
-      { no: 417, word: "目安箱", desc: "徳川吉宗が市中の人々の意見を聞き、それを政治に生かすために実施した制度。", type:"concept" },
-    ],
+    id: "bunka", label: "江戸の文化", icon: "🎭", color: "#8e44ad",
+    questions: [
+      { q: "「奥の細道」を書いた人物は誰か？", choices: ["松尾芭蕉","近松門左衛門","井原西鶴","本居宣長"], a: "松尾芭蕉", exp: "松尾芭蕉が「奥の細道」を書いた。江戸から東北・北陸をへて大垣に至る旅の俳諧紀行文。" },
+      { q: "「曽根崎心中」を書いた人物は誰か？", choices: ["近松門左衛門","松尾芭蕉","井原西鶴","滝沢馬琴"], a: "近松門左衛門", exp: "近松門左衛門は人形浄瑠璃・歌舞伎の台本作家で「曽根崎心中」が代表作。" },
+      { q: "「富嶽三十六景」を描いた人物は誰か？", choices: ["葛飾北斎","歌川広重","菱川師宣","喜多川歌麿"], a: "葛飾北斎", exp: "葛飾北斎は化政文化を代表する浮世絵師で「富嶽三十六景」が代表作。" },
+      { q: "「東海道五十三次」を描いた人物は誰か？", choices: ["歌川広重","葛飾北斎","菱川師宣","尾形光琳"], a: "歌川広重", exp: "歌川（安藤）広重は化政文化を代表する浮世絵師で「東海道五十三次」が代表作。" },
+      { q: "元禄文化が栄えた都市はどこか？", choices: ["京都・大阪（上方）","江戸","長崎","名古屋"], a: "京都・大阪（上方）", exp: "元禄文化は17世紀末〜18世紀はじめ、主に上方（京都・大阪）を中心に栄えた町人文化。" },
+      { q: "化政文化が栄えた都市はどこか？", choices: ["江戸","京都・大阪（上方）","長崎","大阪"], a: "江戸", exp: "化政文化は19世紀はじめ、11代将軍・徳川家斉の時代に江戸を中心に栄えた町人文化。" },
+      { q: "「古事記伝」を著して国学を大成した人物は？", choices: ["本居宣長","杉田玄白","平賀源内","伊能忠敬"], a: "本居宣長", exp: "本居宣長が「古事記伝」を完成させて国学を大成した。日本古来の思想を研究した学問。" },
+      { q: "「解体新書」を翻訳・出版した人物は？", choices: ["杉田玄白","本居宣長","平賀源内","伊能忠敬"], a: "杉田玄白", exp: "杉田玄白が前野良沢らとオランダ語の人体解剖書を翻訳し「解体新書」として出版した。" },
+      { q: "浮世絵を大成した江戸前期の絵師は誰か？", choices: ["菱川師宣","葛飾北斎","歌川広重","喜多川歌麿"], a: "菱川師宣", exp: "菱川師宣が元禄時代に浮世絵を大成した。代表作は「見返り美人図」。" },
+      { q: "「東海道中膝栗毛」を書いた作家は誰か？", choices: ["十返舎一九","滝沢馬琴","井原西鶴","近松門左衛門"], a: "十返舎一九", exp: "十返舎一九は化政文化の作家で、滑稽本「東海道中膝栗毛」が代表作。" },
+    ]
   },
   {
-    id: "society", label: "江戸の社会と経済", icon: "🌾", color: "#e67e22",
-    cards: [
-      { no: 418, word: "地主", desc: "土地を持っている人。多くは小作人に田畑を貸して小作料を得ていた。江戸時代中頃になると、有力な本百姓は高利貸なども行い、地主となった。", type:"concept" },
-      { no: 419, word: "小作人", desc: "地主から田畑を借りて耕作する農民。田畑の使用料はおもに米で納めていた。", type:"concept" },
-      { no: 420, word: "問屋制家内工業", desc: "江戸時代中頃に始まった生産方法。商人や地主が農民に原料の糸や機械を貸して、できた製品を買い上げた。", type:"concept" },
-      { no: 421, word: "工場制手工業", desc: "分業による生産の方法で、マニュファクチュアともいう。江戸時代後期には、地主や問屋商人が作業場に農民を労働者として集めて効率よく生産した。", type:"concept" },
-      { no: 422, word: "百姓一揆", desc: "江戸時代、農民による集団での領主への抵抗。ききんのあとに多く発生し、年貢の軽減や不正役人の交代などの要求をかかげて領主のもとへ押し寄せた。", type:"event" },
-      { no: 423, word: "打ちこわし", desc: "おもに都市に住む人々が起こした反抗行動。米の値上がりなどに苦しむ人々が集団で米を買い占める大商人などを襲い、米を出させたり、売り渋りを要求した。", type:"event" },
-      { no: 424, word: "田沼意次", desc: "18世紀後半の幕府の老中。財政の立て直しのため、商工業者の株仲間を認める代わりに一定の税をとった。さらに印旛沼などの干拓を行い、長崎貿易を奨励した。しかし「わいろ」がさかんになり政治が乱れた。", type:"person" },
-      { no: 425, word: "俵物", desc: "長崎貿易で中国に輸出された海産物。ほしあわび・ふかのひれなど中国料理の材料など。", type:"concept" },
-      { no: 426, word: "天明のききん", desc: "1782〜87年に起こった全国的な大ききん。冷害などの天候不順に浅間山の大噴火などが重なって数年間にわたる全国的なきき んとなった。各地で百姓一揆・打ちこわしが続発し、田沼意次の失脚を早めることにもなった。", type:"event" },
-    ],
+    id: "sekai", label: "世界の歴史と幕末", icon: "🌍", color: "#2471a3",
+    questions: [
+      { q: "「法の精神」で三権分立を説いた思想家は誰か？", choices: ["モンテスキュー","ロック","ルソー","ワット"], a: "モンテスキュー", exp: "モンテスキューはフランスの思想家で「法の精神」をあらわして立法・行政・司法の三権分立を説いた。" },
+      { q: "「社会契約論」で人民主権を説いた思想家は誰か？", choices: ["ルソー","ロック","モンテスキュー","マルクス"], a: "ルソー", exp: "ルソーはフランスの思想家で「社会契約論」をあらわして人民主権を説いた。" },
+      { q: "抵抗権（革命権）を説いてアメリカ独立宣言に影響を与えた思想家は誰か？", choices: ["ロック","ルソー","モンテスキュー","ワシントン"], a: "ロック", exp: "ロックはイギリスの思想家で社会契約説と抵抗権を説き、アメリカ独立宣言・フランス革命に影響を与えた。" },
+      { q: "アメリカ独立戦争を勝利に導き、初代大統領になった人物は誰か？", choices: ["ワシントン","リンカーン","ナポレオン","クロムウェル"], a: "ワシントン", exp: "ワシントンは独立戦争の総司令官として勝利に導き、アメリカ合衆国の初代大統領になった。" },
+      { q: "奴隷解放宣言を行い「人民の、人民による、人民のための政治」で有名な大統領は？", choices: ["リンカーン","ワシントン","ナポレオン","クロムウェル"], a: "リンカーン", exp: "リンカーンは南北戦争中の大統領で奴隷解放宣言を行い、ゲティスバーグの演説でも有名。" },
+      { q: "アヘン戦争の結果、清とイギリスの間で結ばれた条約は何か？", choices: ["南京条約","ポーツマス条約","下関条約","日米和親条約"], a: "南京条約", exp: "1842年に南京条約が結ばれ、清はイギリスに香港を譲り渡し、上海など5港の開港を認めた。" },
+      { q: "日米修好通商条約の問題点として正しいのはどれか？", choices: ["関税自主権がなく領事裁判権を認めた","関税自主権があり平等な条約だった","鎖国を維持できる条約だった","朝鮮との貿易のみ認めた条約だった"], a: "関税自主権がなく領事裁判権を認めた", exp: "日米修好通商条約は関税自主権がなく領事裁判権を認めた不平等条約。大老・井伊直弼が朝廷の許可なしに結んだ。" },
+      { q: "安政の大獄の後、井伊直弼が暗殺された事件は何か？", choices: ["桜田門外の変","生麦事件","大塩平八郎の乱","蛮社の獄"], a: "桜田門外の変", exp: "1860年、水戸藩の浪士らが江戸城桜田門外で大老・井伊直弼を暗殺した事件。" },
+      { q: "インド大反乱のきっかけとなったのは何か？", choices: ["東インド会社のインド人兵士の反乱","アヘン戦争での清の敗北","フランス革命の影響","ムガル帝国の侵攻"], a: "東インド会社のインド人兵士の反乱", exp: "東インド会社にやとわれていたインド人兵士の反乱に王侯や農民が加わり全土に広がった。" },
+      { q: "イギリスがインドにアヘンを輸出していた三角貿易の流れとして正しいのはどれか？", choices: ["イギリス→インド（綿製品）→清（アヘン）→イギリス（銀）","イギリス→清（綿製品）→インド（アヘン）→イギリス（銀）","インド→イギリス（綿製品）→清（アヘン）→インド（銀）","清→インド（アヘン）→イギリス（銀）→清（綿製品）"], a: "イギリス→インド（綿製品）→清（アヘン）→イギリス（銀）", exp: "イギリスは清に綿製品を輸出できなかったためインドにアヘンを密輸し、清から銀・茶・絹を得る三角貿易を行った。" },
+    ]
   },
   {
-    id: "kansei", label: "寛政の改革", icon: "📜", color: "#16a085",
-    cards: [
-      { no: 427, word: "寛政の改革", desc: "18世紀後半、老中松平定信がおこなった幕政改革。幕藩体制の再建のため出稼ぎを制限した。旗本・御家人の借金帳消しをおこない、人材登用のための昌平坂学問所を設けて朱子学を学ばせた。", type:"concept" },
-      { no: 428, word: "松平定信", desc: "寛政の改革をおこなった老中。徳川吉宗の孫。", type:"person" },
-      { no: 429, word: "昌平坂学問所", desc: "江戸幕府の学問所。湯島聖堂の学問所が、寛政の改革のとき幕府の正式な学問所として名前をかえたもので、ここでは朱子学以外の講義は禁じられた。", type:"place" },
-    ],
-  },
-  {
-    id: "gakumon", label: "江戸の学問と文化", icon: "📚", color: "#2980b9",
-    cards: [
-      { no: 430, word: "札差", desc: "江戸時代、旗本・御家人の年貢米を受け取って売りさばいていた商人。やがて年貢米を担保にした金融業が中心となった。", type:"concept" },
-      { no: 431, word: "国学", desc: "日本の古典を研究して、儒教・仏教の影響を受ける前の日本古来の思想を明らかにしようとする学問。18世紀後半に本居宣長によって大成された。", type:"concept" },
-      { no: 432, word: "本居宣長", desc: "江戸時代中期の国学の大成者。「古事記」の中に日本古来の考え方があるとしてその研究を始め、「古事記伝」を完成させて国学を大成した。", type:"person" },
-      { no: 433, word: "蘭学", desc: "江戸時代中期以降さかんになった、オランダ語によって研究された西洋の学問。「解体新書」によって基礎が築かれた。", type:"concept" },
-      { no: 434, word: "杉田玄白", desc: "江戸時代中期の蘭学者・医者。江戸での人体解剖をみて西洋医学書の正確さに驚き、前野良沢らとオランダの人体解剖書を翻訳して「解体新書」として出版した。", type:"person" },
-      { no: 435, word: "解体新書", desc: "日本で最初の西洋医学の翻訳書。1774年刊。杉田玄白・前野良沢らがオランダ語の人体解剖書「ターヘル＝アナトミア」を翻訳したもの。", type:"work" },
-      { no: 436, word: "シーボルト", desc: "オランダ商館の医師として来日したドイツ人。長崎郊外に診療所をかねて鳴滝塾をひらき医学などを教え、多くの人材を育てた。", type:"person" },
-      { no: 437, word: "平賀源内", desc: "江戸時代中期の科学者。医学をはじめ蘭学全般をまなび、日本で最初の寒暖計やエレキテル（摩擦起電器）をつくった。", type:"person" },
-      { no: 438, word: "伊能忠敬", desc: "江戸時代後半の地理学者。50歳を過ぎて西洋の天文学などを学び、幕府の援助で西洋の測量術を取り入れて、全国の沿岸を測量した。死後「大日本沿海輿地図」として完成した。", type:"person" },
-    ],
-  },
-  {
-    id: "kasei", label: "江戸文化②（化政文化）", icon: "🎨", color: "#8e44ad",
-    cards: [
-      { no: 439, word: "化政文化", desc: "19世紀はじめ、11代将軍徳川家斉の文化・文政年間に江戸を中心に栄えた町人文化。都市の繁栄や教育の普及などを背景にして文化の内容は多岐にわたる。", type:"concept" },
-      { no: 440, word: "喜多川歌麿", desc: "江戸時代後期の浮世絵師。顔を主体に女性の半身図を描く大首絵を得意とし、美人画の第一人者。代表作は「婦女人相十品」。", type:"person" },
-      { no: 441, word: "歌川（安藤）広重", desc: "江戸時代後期の浮世絵師。風景画にすぐれ、風景を版画にした作品は旅への関心とともに庶民の人気をあつめた。代表作は「東海道五十三次」。", type:"person" },
-      { no: 442, word: "葛飾北斎", desc: "江戸時代後期の浮世絵師。風景画にすぐれた。代表作は「富嶽三十六景」。", type:"person" },
-      { no: 443, word: "十返舎一九", desc: "江戸時代後期の作家。滑稽本を得意とした。代表作は「東海道中膝栗毛」。", type:"person" },
-      { no: 444, word: "滝沢馬琴", desc: "江戸時代後期の作家。歴史や伝説を題材とした「読本」とよばれる長編小説をあらわした。代表作は「南総里見八犬伝」。", type:"person" },
-      { no: 445, word: "瓦版", desc: "江戸時代、木版ですられた印刷物。現在の新聞のようなもので、災害やあだうちなどのニュースを挿絵入りで一枚に刷り、町で読み上げながら売りさばいた。", type:"concept" },
-      { no: 446, word: "藩校", desc: "江戸時代諸藩が設けた教育施設。藩士の子弟に、おもに儒学や武芸を教えた。全国で300近く設けられた。", type:"concept" },
-      { no: 447, word: "寺子屋", desc: "江戸時代、庶民のための教育施設。僧・神官や裕福な町人が開き、「読み・書き・そろばん」など日常生活に役立つことや道徳を教えた。", type:"concept" },
-    ],
-  },
-  {
-    id: "ousei", label: "欧米の近代化", icon: "🏛️", color: "#2c3e50",
-    cards: [
-      { no: 448, word: "絶対王政", desc: "16〜18世紀のヨーロッパで、国王が強い権力をもっておこなった専制的な政治。イギリスのエリザベス1世、フランスのルイ14世などが代表的。", type:"concept" },
-      { no: 449, word: "ピューリタン革命（清教徒革命）", desc: "1640年、イギリスではじまった市民革命。クロムウェルの指導する議会派は国王を処刑して共和制に移行した。", type:"event" },
-      { no: 450, word: "クロムウェル", desc: "ピューリタン革命の指導者。議会派を率いて国王を処刑し、共和制をはじめた。しかし厳しい政治は人々の不満をまねき、彼の死後ふたたび王政に戻った。", type:"person" },
-      { no: 451, word: "名誉革命", desc: "1688年にイギリスでおこった市民革命。議会が国王を追放し、翌年、議会は権利の章典を定めて議会政治の基礎を確立した。", type:"event" },
-      { no: 452, word: "権利の章典", desc: "1689年、政治の中心が議会にあることを承認した法律。名誉革命後に「議会の承認なしには王権の行使はできない」などの内容で制定された。", type:"work" },
-      { no: 453, word: "立憲君主制", desc: "君主の権力が憲法により制限されている政治。17世紀のイギリスで市民革命をもとに基礎が確立された。「王は君臨すれども統治せず」という原則が確立した。", type:"concept" },
-      { no: 454, word: "ロック", desc: "イギリスの思想家。「社会契約説」と抵抗権（革命権）を説き、アメリカ独立宣言・フランス革命に大きな影響を与えた。", type:"person" },
-      { no: 455, word: "モンテスキュー", desc: "フランスの思想家。「法の精神」をあらわして、立法・行政・司法の三権分立を説き、アメリカ合衆国憲法などに影響を与えた。", type:"person" },
-      { no: 456, word: "ルソー", desc: "フランスの思想家。社会の不平等をなくすため自然への回帰を説き、さらに「社会契約論」をあらわして人民主権を説いた。", type:"person" },
-      { no: 457, word: "産業革命", desc: "18世紀後半にイギリスから始まった、産業や社会のしくみの大きな変化。工場制手工業から工場制機械工業へとかわり、資本主義のしくみができあがった。", type:"event" },
-      { no: 458, word: "ワット", desc: "蒸気機関を動力として利用するよう改良したイギリスの技術者。蒸気機関が工場や交通機関で使われるようになり、産業革命をいっそう推し進めることになった。", type:"person" },
-      { no: 459, word: "資本主義", desc: "資本家が利潤を得ることを目的に労働者を雇って商品を生産する経済のしくみ。産業革命によって確立し、私有財産制度と自由競争を基本としている。", type:"concept" },
-      { no: 460, word: "労働組合", desc: "労働条件の改善などを求めて労働者が自主的に結成する団体。産業革命の進展とともに各国で結成されるようになった。", type:"concept" },
-      { no: 461, word: "社会主義", desc: "土地や工場など生産手段を社会全体のものとして、階級のない平等な社会をつくろうとする考え方。資本主義に対する考えとして生まれた。", type:"concept" },
-      { no: 462, word: "マルクス", desc: "ドイツの経済学者・哲学者。エンゲルスとともに「共産党宣言」をあらわして、労働者が団結して新しい社会主義の社会を実現しようと訴えた。", type:"person" },
-      { no: 463, word: "独立宣言", desc: "1776年7月4日、アメリカ独立戦争中に出された宣言。人間は生まれながらに平等であることや圧政に対する抵抗権などを内容とし、フランス革命の「人権宣言」などに影響を与えた。", type:"work" },
-      { no: 464, word: "ワシントン", desc: "アメリカ初代大統領。独立戦争では総司令官に選ばれてアメリカを勝利に導き、アメリカ合衆国憲法制定にともなって初代大統領になった。", type:"person" },
-      { no: 465, word: "リンカーン", desc: "南北戦争当時のアメリカ大統領。奴隷解放宣言などをおこなって北軍を勝利に導いた。「人民の、人民による、人民のための政治」の演説で有名。", type:"person" },
-      { no: 466, word: "南北戦争", desc: "アメリカ南北両地域間でおこなわれた戦争。貿易や自治、奴隷制などをめぐって対立し、南部諸州が別の国をつくったことから始まった。奴隷解放宣言で内外の支持をあつめた北軍が勝利した。", type:"event" },
-      { no: 467, word: "フランス革命", desc: "1789年、フランスのパリで起きた市民革命。市民がバスチーユ牢獄を襲撃してはじまった。国民議会は封建的特権を廃止し、人権宣言を発表した。", type:"event" },
-      { no: 468, word: "フランス人権宣言", desc: "1789年、フランス革命で発表された宣言。自由・平等、人民主権、思想・言論の自由、私有財産の不可侵などを内容とし、近代市民社会の原理を示した。", type:"work" },
-      { no: 469, word: "ナポレオン", desc: "フランスの皇帝・軍人。革命政府のもとで名声を高め、1799年に政権をにぎった。1804年には皇帝になった。ロシアへの遠征に敗れ、セントヘレナ島に流された。", type:"person" },
-    ],
-  },
-  {
-    id: "asia", label: "アジアの動揺", icon: "🌏", color: "#27ae60",
-    cards: [
-      { no: 470, word: "イギリス東インド会社", desc: "1600年に設立された貿易会社。香辛料の輸入などアジア貿易の独占権を与えられ、外交権・軍事権なども持つ国家的な機関で、イギリスのアジア植民地支配に大きな役割を果たした。", type:"place" },
-      { no: 471, word: "アヘン戦争", desc: "アヘンの密輸をめぐる清とイギリスの戦争。イギリスは支払いの銀を得るためインド産のアヘンを中国に密輸した。清がアヘンを厳しく取り締まると、イギリスは武力で清を降伏させた。", type:"event" },
-      { no: 472, word: "南京条約", desc: "1842年、イギリスと清との間で結ばれたアヘン戦争の講和条約。清はイギリスに香港を譲り渡し、上海など5港の開港と賠償金の支払いを認めた。", type:"work" },
-      { no: 473, word: "太平天国", desc: "1851年、中国南部で挙兵した洪秀全が建国した国。漢民族の政府を再興して南京を首都に勢力を広げたが、1864年に清にほろぼされた。", type:"concept" },
-      { no: 474, word: "インド大反乱", desc: "インド各地に広まったイギリスに対する反乱。東インド会社にやとわれていたインド人兵士の反乱に、不満を持つ王侯や農民が加わり、全土に広がる大規模な反乱となった。", type:"event" },
-      { no: 475, word: "ムガル帝国", desc: "16世紀はじめ、中央アジアのイスラム教徒がインドに侵入して建国した国。16世紀後半から17世紀が全盛期だったが、1858年、インド大反乱を理由にイギリスによって滅ぼされた。", type:"place" },
-    ],
-  },
-  {
-    id: "russia", label: "ロシアの接近と対外政策", icon: "🚢", color: "#1a5276",
-    cards: [
-      { no: 476, word: "ラクスマン", desc: "ロシアの軍人。1792年、大黒屋光太夫を送り戻すことを名目として最初の公式使節として根室に来航し、通商を求めた。長崎入港の許可は得られたが、通商は断られて帰国した。", type:"person" },
-      { no: 477, word: "レザノフ", desc: "ロシアの遣日使節。長崎に来港して通商を求めた。しかし、オランダ・中国以外とは交渉しないとして通商を拒否された。", type:"person" },
-      { no: 478, word: "異国船打払令", desc: "1825年に幕府が出した外国船追放令。19世紀に入り日本近海に外国船がしきりにあらわれるようになったため、幕府は沿岸の防備を強化し、外国船を見つけしだい撃退することを命じた。", type:"concept" },
-      { no: 479, word: "高野長英", desc: "江戸時代後期の蘭学者。シーボルトに医学・蘭学を学ぶ。渡辺崋山らと海外事情を研究し、モリソン号事件を知って幕府の対外政策を批判する本をあらわし、幕府から処罰を受けた。", type:"person" },
-      { no: 480, word: "蛮社の獄", desc: "1839年、モリソン号事件を批判した渡辺崋山・高野長英らに対する幕府による言論弾圧事件。", type:"event" },
-    ],
-  },
-  {
-    id: "tenpo", label: "天保の改革と幕末", icon: "⚡", color: "#922b21",
-    cards: [
-      { no: 481, word: "大塩平八郎", desc: "江戸時代後期の陽明学者・大坂町奉行所の役人。天保のきき んの際、救済を奉行所に聞き入れられなかったことで門弟らとともに乱を起こした。", type:"person" },
-      { no: 482, word: "天保の改革", desc: "水野忠邦がおこなった幕府の政治改革。倹約令を出し、株仲間の解散、江戸への出稼ぎの禁止などをおこなった。江戸・大阪周辺の土地を幕府領にしようとしたが失敗した。", type:"concept" },
-      { no: 483, word: "水野忠邦", desc: "天保の改革をおこなった老中。幕府権力の回復をめざして天保の改革をおこなったが、きびしい政策は人々の反感を受け、さらに大名たちからも反対されて老中を辞めさせられた。", type:"person" },
-      { no: 484, word: "上知令", desc: "天保の改革でおこなわれた江戸・大坂周辺の大名・旗本の領地を幕府領にしようとする政策。関係する大名・旗本の反対にあい失敗した。", type:"concept" },
-    ],
-  },
-  {
-    id: "kaikoku", label: "開国と幕末", icon: "⛵", color: "#117864",
-    cards: [
-      { no: 485, word: "ペリー", desc: "日本に開国を求めてきたアメリカ海軍軍人。1853年、開国を求める大統領の国書をもって軍艦4隻で浦賀（神奈川県）に来航した。翌、1854年に再び来航して日米和親条約を結び、日本を開国させた。", type:"person" },
-      { no: 486, word: "浦賀", desc: "現在の神奈川県横須賀市の一部。江戸湾（東京湾）の入口の港として発展し、1853年にはペリーが幕府に開国を求めて来航した。", type:"place" },
-      { no: 487, word: "日米和親条約", desc: "1854年、江戸幕府がアメリカと結んだ条約。下田（静岡県）・函館をひらき、入港する船に燃料・水・食料を供給することを認めた。同様の条約を英・蘭・露とも結んだ。", type:"work" },
-      { no: 488, word: "日米修好通商条約", desc: "1858年、江戸幕府が結んだ条約。大老・井伊直弼が朝廷の許可を得ないまま条約を結んだ。函館・神奈川・長崎・新潟・兵庫の5港をひらき、自由な貿易を認めたが、関税自主権がないなど不平等条約であった。", type:"work" },
-      { no: 489, word: "尊王攘夷論", desc: "朝廷の権威を高め、外国の勢力を打ち払うことをかかげた幕末の政治運動。", type:"concept" },
-      { no: 490, word: "井伊直弼", desc: "1858年、朝廷の許可を得ないまま日米修好通商条約を結んだ大老。さらに反対する人々を安政の大獄で処罰したことから、1860年、桜田門外で水戸藩の浪士に暗殺された。", type:"person" },
-      { no: 491, word: "安政の大獄", desc: "1858年〜59年にかけて、大老・井伊直弼が反対派を弾圧した事件。吉田松陰など尊王攘夷派の人々がきびしく処罰されて死刑にされた。", type:"event" },
-      { no: 492, word: "吉田松陰", desc: "長州藩士・思想家。ペリー再来のとき、海外密航を計画した。その後、萩（山口県）に戻り松下村塾で高杉晋作ら多くの人材を育てた。安政の大獄で処刑された。", type:"person" },
-      { no: 493, word: "桜田門外の変", desc: "1860年、大老・井伊直弼が暗殺された事件。安政の大獄での弾圧などに反感を持った水戸浪士らが起こした。", type:"event" },
-      { no: 494, word: "生麦事件", desc: "1862年、薩摩藩士によるイギリス人殺傷事件。イギリスは犯人の処罰と賠償金を求めたが、薩摩藩は応じなかったので翌年、薩英戦争が起こった。", type:"event" },
-    ],
-  },
-  {
-    id: "shishi", label: "明治維新の志士たち", icon: "⚔️", color: "#6c3483",
-    cards: [
-      { no: 495, word: "大久保利通", desc: "薩摩藩士・明治初期の政治家。西郷隆盛とともに幕府を倒し、明治新政府でも指導的立場についた。欧米視察後は政府の実権を握り、地租改正・殖産興業などを進めた。", type:"person" },
-      { no: 496, word: "西郷隆盛", desc: "薩摩藩士・幕末から明治初期の政治家。長州藩と協力して幕府を倒し、戊辰戦争では江戸城の無血開城に成功した。西南戦争を起こしたが、敗れて自殺した。", type:"person" },
-      { no: 497, word: "木戸孝允", desc: "長州藩士・明治初期の政治家。桂小五郎と称して倒幕運動に参加し、薩長同盟を進めて幕府を倒した。新政府の中心となり、廃藩置県を断行した。", type:"person" },
-      { no: 498, word: "坂本龍馬", desc: "土佐藩士。勝海舟に航海術を学び、長崎に海援隊をつくって貿易と海運をおこなった。また、薩長同盟の仲立ちをし、大政奉還の実現に努力した。", type:"person" },
-    ],
-  },
-  {
-    id: "bakumatsu", label: "幕末〜大政奉還", icon: "🏛️", color: "#1f618d",
-    cards: [
-      { no: 499, word: "世直し", desc: "新しい世の中を求める社会の傾向。特に、幕末から明治維新にかけて盛んになり、生活に苦しむ人々が各地で一揆や打ちこわしを起こした。", type:"concept" },
-      { no: 500, word: "ええじゃないか", desc: "幕末におこった民衆の騒動。1867年、東海・近畿地方を中心に伊勢神宮のお札が天から降ってきたとして、大勢の人が歌い踊る騒ぎがおこった。物価の値上がりなどに苦しむ人々の世直しを期待する気持ちのあらわれともいわれる。", type:"event" },
-      { no: 501, word: "大政奉還", desc: "1867年、15代将軍徳川慶喜が朝廷に政権を返したこと。徳川慶喜は天皇のもとでの新しい政権でも実権をもち続けようとかんがえて政権を返上した。", type:"event" },
-      { no: 502, word: "徳川慶喜", desc: "江戸幕府最後の15代将軍。徳川御三家の水戸藩の出身。", type:"person" },
-      { no: 503, word: "王政復古の大号令", desc: "1867年、江戸幕府を廃止して天皇中心の新政府の成立を宣言したこと。朝廷の岩倉具視と薩摩・長州藩を中心に計画が進められ、徳川慶喜は官職と領地の返上を命じられた。", type:"event" },
-      { no: 504, word: "岩倉具視", desc: "幕末から明治時代の公家・政治家。王政復古の大号令などにつく。明治新政府では右大臣などの要職につき、条約改正準備のために欧米を視察した。", type:"person" },
-      { no: 505, word: "戊辰戦争", desc: "新政府軍と旧幕府軍との一連の戦い。1868年、鳥羽・伏見の戦いに勝利した新政府軍は江戸城をあけわたさせ、東北諸藩をやぶり、翌年には函館・五稜郭の旧幕府軍を降伏させた。", type:"event" },
-      { no: 506, word: "鳥羽・伏見の戦い", desc: "1868年、京都郊外でおこった新政府軍が旧幕府軍をやぶった戦い。徳川慶喜の官職や領地の返上を不満とした旧幕府軍は戦いを起こしたが、薩摩・長州を中心とする新政府軍に敗れた。", type:"event" },
-    ],
+    id: "bakumatsu", label: "幕末の動乱", icon: "⚔️", color: "#117864",
+    questions: [
+      { q: "1853年、浦賀に来航して開国を求めたアメリカの提督は誰か？", choices: ["ペリー","ラクスマン","レザノフ","リンカーン"], a: "ペリー", exp: "ペリーは1853年に軍艦4隻で浦賀に来航し、翌1854年に日米和親条約を結んで日本を開国させた。" },
+      { q: "1854年に結ばれた日本とアメリカの条約は何か？", choices: ["日米和親条約","日米修好通商条約","南京条約","ポーツマス条約"], a: "日米和親条約", exp: "日米和親条約は1854年に結ばれ、下田・函館を開港し、入港する船に燃料・食料を供給することを認めた。" },
+      { q: "薩長同盟の仲立ちをし、大政奉還の実現に尽力した土佐藩士は誰か？", choices: ["坂本龍馬","西郷隆盛","木戸孝允","大久保利通"], a: "坂本龍馬", exp: "坂本龍馬は土佐藩士で薩長同盟の仲立ちをし、大政奉還の実現に努力した。" },
+      { q: "1867年、15代将軍が朝廷に政権を返したことを何というか？", choices: ["大政奉還","王政復古の大号令","廃藩置県","戊辰戦争"], a: "大政奉還", exp: "1867年、15代将軍・徳川慶喜が朝廷に政権を返したことを大政奉還という。" },
+      { q: "朝廷の権威を高め外国を追い払おうとした幕末の政治運動は何か？", choices: ["尊王攘夷論","自由民権運動","大政奉還","王政復古"], a: "尊王攘夷論", exp: "尊王攘夷論は朝廷の権威を高め外国の勢力を打ち払うことをかかげた幕末の政治運動。" },
+      { q: "吉田松陰が開いた私塾で、高杉晋作など多くの人材を育てた場所はどこか？", choices: ["松下村塾","昌平坂学問所","適塾","鳴滝塾"], a: "松下村塾", exp: "吉田松陰が萩（山口県）に開いた松下村塾では高杉晋作・伊藤博文など多くの人材が育った。" },
+    ]
   },
 ];
- 
-const shuffle = (arr) => {
+
+const shuffle = arr => {
   const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
   return a;
 };
- 
- 
-const SCIENCE_UNITS = [
-  {
-    id: "busshitsu", label: "第1章 物質のなり立ち", icon: "⚗️", color: "#e67e22",
-    cards: [
-      { no: 1, word: "化学変化", desc: "もとの物質とちがう物質ができる変化。化学反応ともいう。", type: "concept" },
-      { no: 2, word: "分解", desc: "1種類の物質が2種類以上の物質に分かれる化学変化。", type: "concept" },
-      { no: 3, word: "熱分解", desc: "物質に熱を加えて分解すること。", type: "concept" },
-      { no: 4, word: "電気分解", desc: "物質に電流を流して分解すること。", type: "concept" },
-      { no: 5, word: "原子", desc: "それ以上、分割することのできない粒子。", type: "concept" },
-      { no: 6, word: "元素", desc: "原子の種類。", type: "concept" },
-      { no: 7, word: "元素記号", desc: "元素を表す1文字、または2文字のアルファベットからなる記号。", type: "concept" },
-      { no: 8, word: "元素の周期表", desc: "性質をもとに元素を整理した表。", type: "concept" },
-      { no: 9, word: "分子", desc: "いくつかの原子が結びついた粒子。物質の性質を示す最小単位。", type: "concept" },
-      { no: 10, word: "化学式", desc: "元素記号を用いて物質を表したもの。", type: "concept" },
-      { no: 11, word: "単体", desc: "1種類の元素からできている物質。", type: "concept" },
-      { no: 12, word: "化合物", desc: "2種類以上の元素からできている物質。", type: "concept" },
-      { no: 13, word: "混合物", desc: "2種類以上の物質が混じり合っているもの。", type: "concept" },
-    ],
-  },
-  {
-    id: "kagaku_hannou", label: "第2章 物質どうしの化学変化", icon: "🧪", color: "#27ae60",
-    cards: [
-      { no: 14, word: "化学反応式", desc: "化学式を組み合わせて、化学変化を表した式。", type: "concept" },
-      { no: 15, word: "化合", desc: "2種類以上の物質が結びついて、別の1種類の物質ができる化学変化。", type: "concept" },
-    ],
-  },
-  {
-    id: "sanso", label: "第3章 酸素がかかわる化学変化", icon: "🔥", color: "#c0392b",
-    cards: [
-      { no: 16, word: "酸化", desc: "物質が酸素と結びつくこと。", type: "concept" },
-      { no: 17, word: "酸化物", desc: "酸化によってできる物質。", type: "concept" },
-      { no: 18, word: "燃焼", desc: "酸化の中でも、特に物質が熱や光を出しながら激しく酸化されること。", type: "concept" },
-      { no: 19, word: "還元", desc: "酸化物から酸素がうばわれる化学変化。酸化と還元は同時に起こる。", type: "concept" },
-    ],
-  },
-  {
-    id: "genso_kigo", label: "元素記号（元素→記号）", icon: "🔬", color: "#8e44ad",
-    cards: [
-      { no: 20, word: "H（水素）", desc: "水素の元素記号はH。非金属元素。水（H₂O）の成分。", type: "symbol" },
-      { no: 21, word: "He（ヘリウム）", desc: "ヘリウムの元素記号はHe。非金属元素。気球などに使われる。", type: "symbol" },
-      { no: 22, word: "C（炭素）", desc: "炭素の元素記号はC。非金属元素。有機物に含まれる。", type: "symbol" },
-      { no: 23, word: "N（窒素）", desc: "窒素の元素記号はN。非金属元素。空気の約78%を占める。", type: "symbol" },
-      { no: 24, word: "O（酸素）", desc: "酸素の元素記号はO。非金属元素。空気の約21%を占める。", type: "symbol" },
-      { no: 25, word: "Ne（ネオン）", desc: "ネオンの元素記号はNe。非金属元素。ネオンサインに使われる。", type: "symbol" },
-      { no: 26, word: "Si（ケイ素）", desc: "ケイ素の元素記号はSi。非金属元素。半導体の材料になる。", type: "symbol" },
-      { no: 27, word: "S（硫黄）", desc: "硫黄の元素記号はS。非金属元素。火山ガスに含まれる。", type: "symbol" },
-      { no: 28, word: "Cl（塩素）", desc: "塩素の元素記号はCl。非金属元素。塩化水素（HCl）の成分。", type: "symbol" },
-      { no: 29, word: "Na（ナトリウム）", desc: "ナトリウムの元素記号はNa。金属元素。食塩（NaCl）の成分。", type: "symbol" },
-      { no: 30, word: "Mg（マグネシウム）", desc: "マグネシウムの元素記号はMg。金属元素。燃やすと白い光を出す。", type: "symbol" },
-      { no: 31, word: "Al（アルミニウム）", desc: "アルミニウムの元素記号はAl。金属元素。軽くてさびにくい。", type: "symbol" },
-      { no: 32, word: "K（カリウム）", desc: "カリウムの元素記号はK。金属元素。肥料などに使われる。", type: "symbol" },
-      { no: 33, word: "Ca（カルシウム）", desc: "カルシウムの元素記号はCa。金属元素。骨や歯の成分。", type: "symbol" },
-      { no: 34, word: "Fe（鉄）", desc: "鉄の元素記号はFe。金属元素。建築材料などに広く使われる。", type: "symbol" },
-      { no: 35, word: "Cu（銅）", desc: "銅の元素記号はCu。金属元素。電線などに使われる。", type: "symbol" },
-      { no: 36, word: "Zn（亜鉛）", desc: "亜鉛の元素記号はZn。金属元素。乾電池の材料などに使われる。", type: "symbol" },
-      { no: 37, word: "Ag（銀）", desc: "銀の元素記号はAg。金属元素。電気をよく通す。", type: "symbol" },
-      { no: 38, word: "Ba（バリウム）", desc: "バリウムの元素記号はBa。金属元素。X線検査などに使われる。", type: "symbol" },
-      { no: 39, word: "Au（金）", desc: "金の元素記号はAu。金属元素。さびない貴金属。", type: "symbol" },
-    ],
-  },
-];
- 
-function AnkiApp() {
-  const [subject, setSubject] = useState(null); // "social" | "science"
-  const [screen, setScreen] = useState("home");  // home | subject | units | study
-  const [unit, setUnit] = useState(null);
-  const [mode, setMode] = useState("flashcard");
+
+function App() {
+  const [screen, setScreen] = useState("home"); // home | section | quiz | result
+  const [activeSection, setActiveSection] = useState(null);
   const [deck, setDeck] = useState([]);
   const [idx, setIdx] = useState(0);
-  const [flipped, setFlipped] = useState(false);
-  const [quizChoices, setQuizChoices] = useState([]);
   const [selected, setSelected] = useState(null);
-  const [score, setScore] = useState({ ok: 0, ng: 0 });
+  const [score, setScore] = useState({ ok:0, ng:0 });
+  const [showExp, setShowExp] = useState(false);
   const [particles, setParticles] = useState([]);
-  const [finished, setFinished] = useState(false);
+  const [wrongList, setWrongList] = useState([]);
   const timerRef = useRef(null);
- 
-  const spawnParticles = (ok) => {
-    setParticles(Array.from({ length: 8 }, (_, i) => ({
-      id: Date.now() + i,
-      x: 20 + Math.random() * 60,
-      y: 30 + Math.random() * 40,
-      emoji: ok ? ["⭐","✨","🎉","💫"][i%4] : ["💨","😅"][i%2]
-    })));
+
+  const spawnParticles = ok => {
+    setParticles(Array.from({length:8},(_,i)=>({id:Date.now()+i,x:20+Math.random()*60,y:30+Math.random()*40,emoji:ok?["⭐","✨","🎉","💫"][i%4]:["💨","😅"][i%2]})));
     clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => setParticles([]), 1100);
+    timerRef.current = setTimeout(()=>setParticles([]),1100);
   };
- 
-  const buildChoices = (cards, currentIdx) => {
-    const correct = cards[currentIdx];
-    const allCards = [...UNITS, ...SCIENCE_UNITS].flatMap(u => u.cards);
-    // 同じtypeから候補を選ぶ、足りなければ全体から補充
-    const sameType = allCards.filter(c => c.word !== correct.word && c.type === correct.type);
-    const otherType = allCards.filter(c => c.word !== correct.word && c.type !== correct.type);
-    const pool = shuffle(sameType).concat(shuffle(otherType));
-    const others = pool.slice(0, 3);
-    return shuffle([correct, ...others]);
+
+  const startQuiz = (section, mode) => {
+    let qs = mode === "wrong" ? wrongList : shuffle([...section.questions]);
+    setActiveSection(section);
+    setDeck(qs.map(q=>({...q, _choices:shuffle([...q.choices])}))); 
+    setIdx(0); setSelected(null); setScore({ok:0,ng:0}); setShowExp(false);
+    if(mode!=="wrong") setWrongList([]);
+    setScreen("quiz");
   };
- 
-  const currentUnits = subject === "science" ? SCIENCE_UNITS : UNITS;
- 
-  const startStudy = (u, m) => {
-    const shuffled = shuffle(u.cards);
-    setUnit(u); setMode(m); setDeck(shuffled); setIdx(0);
-    setFlipped(false); setSelected(null); setScore({ ok: 0, ng: 0 }); setFinished(false);
-    if (m === "quiz") setQuizChoices(buildChoices(shuffled, 0));
-    setScreen("study");
-  };
- 
-  const goNext = () => {
-    const nextIdx = idx + 1;
-    if (nextIdx >= deck.length) { setFinished(true); return; }
-    setIdx(nextIdx); setFlipped(false); setSelected(null);
-    if (mode === "quiz") setQuizChoices(buildChoices(deck, nextIdx));
-  };
- 
-  const handleKnew = () => { setScore(s => ({ ...s, ok: s.ok + 1 })); spawnParticles(true); goNext(); };
-  const handleDidnt = () => { setScore(s => ({ ...s, ng: s.ng + 1 })); spawnParticles(false); goNext(); };
-  const handleChoice = (c) => {
-    if (selected) return;
-    setSelected(c);
-    const ok = c.word === deck[idx].word;
-    setScore(s => ({ ok: s.ok + (ok ? 1 : 0), ng: s.ng + (ok ? 0 : 1) }));
+
+  const handleChoice = ch => {
+    if(selected!==null) return;
+    setSelected(ch);
+    const ok = ch === deck[idx].a;
+    setScore(s=>({ok:s.ok+(ok?1:0),ng:s.ng+(ok?0:1)}));
+    if(!ok) setWrongList(w=>[...w, deck[idx]]);
     spawnParticles(ok);
+    setShowExp(false);
   };
- 
-  const unitColor = unit ? unit.color : "#6478ff";
-  const totalCards = deck.length;
-  const progress = totalCards ? (idx / totalCards) * 100 : 0;
- 
-  const S = {
-    wrap: { minHeight:"100vh", background:"linear-gradient(135deg,#08080f,#0e101e 60%,#060c14)", fontFamily:"'Noto Sans JP','Hiragino Kaku Gothic ProN',sans-serif", color:"#e8e8f0", position:"relative", overflow:"hidden" },
-    grid: { position:"fixed", inset:0, pointerEvents:"none", backgroundImage:"linear-gradient(rgba(100,120,255,0.035) 1px,transparent 1px),linear-gradient(90deg,rgba(100,120,255,0.035) 1px,transparent 1px)", backgroundSize:"40px 40px" },
-    inner: { maxWidth:640, margin:"0 auto", padding:"16px 14px" },
+
+  const goNext = () => {
+    if(idx+1 >= deck.length){ setScreen("result"); return; }
+    setIdx(i=>i+1); setSelected(null); setShowExp(false);
   };
- 
+
+  const color = activeSection?.color ?? "#6478ff";
+  const total = deck.length;
+
   return (
-    <div style={S.wrap}>
-      <div style={S.grid} />
+    <div style={{minHeight:"100vh",background:"linear-gradient(135deg,#07070e,#0d0f1c 60%,#060c14)",fontFamily:"'Noto Sans JP','Hiragino Kaku Gothic ProN',sans-serif",color:"#e8e8f0",overflow:"hidden",position:"relative"}}>
+      <div style={{position:"fixed",inset:0,pointerEvents:"none",backgroundImage:"linear-gradient(rgba(100,120,255,0.035) 1px,transparent 1px),linear-gradient(90deg,rgba(100,120,255,0.035) 1px,transparent 1px)",backgroundSize:"40px 40px"}} />
+      {particles.map(p=><div key={p.id} style={{position:"fixed",left:`${p.x}%`,top:`${p.y}%`,fontSize:"1.8rem",pointerEvents:"none",zIndex:999,animation:"floatUp 1.1s ease-out forwards"}}>{p.emoji}</div>)}
       <style>{`
-        @keyframes floatUp{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-65px) scale(1.4)}}
+        @keyframes floatUp{0%{opacity:1;transform:translateY(0)scale(1)}100%{opacity:0;transform:translateY(-65px)scale(1.4)}}
         @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-        @keyframes flipIn{from{opacity:0;transform:rotateX(-15deg) translateY(8px)}to{opacity:1;transform:rotateX(0) translateY(0)}}
-        @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(100,120,255,0.3)}50%{box-shadow:0 0 0 10px rgba(100,120,255,0)}}
-        .ch:hover{transform:translateY(-2px) scale(1.013);filter:brightness(1.1)}.ch{transition:transform 0.16s,filter 0.16s;cursor:pointer}
-        .cb:hover{filter:brightness(1.12);transform:translateX(3px)}.cb{transition:all 0.12s;cursor:pointer}
-        .fbtn:hover{filter:brightness(1.15)}.fbtn{transition:filter 0.15s;cursor:pointer}
+        @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(100,120,255,.3)}50%{box-shadow:0 0 0 10px rgba(100,120,255,0)}}
+        .ch:hover{transform:translateY(-2px)scale(1.013);filter:brightness(1.1)}.ch{transition:transform .16s,filter .16s;cursor:pointer}
+        .cb:hover{filter:brightness(1.12);transform:translateX(3px)}.cb{transition:all .12s;cursor:pointer}
+        .fb:hover{filter:brightness(1.15)}.fb{transition:filter .14s;cursor:pointer}
       `}</style>
- 
-      {particles.map(p => (
-        <div key={p.id} style={{ position:"fixed", left:`${p.x}%`, top:`${p.y}%`, fontSize:"1.8rem", pointerEvents:"none", zIndex:999, animation:"floatUp 1.1s ease-out forwards" }}>{p.emoji}</div>
-      ))}
- 
-      <div style={S.inner}>
-        <div style={{ textAlign:"center", marginBottom:18 }}>
-          <div style={{ fontSize:"0.68rem", letterSpacing:"0.24em", color:"#6478ff", textTransform:"uppercase", marginBottom:4 }}>HISTORY FLASH CARDS</div>
-          <h1 style={{ fontSize:"1.55rem", fontWeight:900, margin:0, background:"linear-gradient(90deg,#8fa8ff,#c8a8ff,#8fc8ff)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent" }}>江戸〜幕末 語句暗記</h1>
-          <div style={{ fontSize:"0.74rem", color:"#556", marginTop:4 }}>教科書 No.402〜506 · 全105語句</div>
-          {screen === "study" && !finished && (
-            <div style={{ marginTop:8, display:"flex", justifyContent:"center", gap:8, flexWrap:"wrap" }}>
-              <span style={{ background:"rgba(100,120,255,0.15)", border:"1px solid rgba(100,120,255,0.3)", borderRadius:20, padding:"2px 12px", fontSize:"0.76rem" }}>{idx+1}/{totalCards}</span>
-              <span style={{ background:"rgba(39,174,96,0.15)", border:"1px solid #27ae6055", borderRadius:20, padding:"2px 12px", fontSize:"0.76rem", color:"#7ef0a8" }}>✅{score.ok}</span>
-              <span style={{ background:"rgba(192,57,43,0.15)", border:"1px solid #c0392b55", borderRadius:20, padding:"2px 12px", fontSize:"0.76rem", color:"#f08080" }}>❌{score.ng}</span>
+
+      <div style={{maxWidth:640,margin:"0 auto",padding:"16px 14px"}}>
+
+        {/* ヘッダー */}
+        <div style={{textAlign:"center",marginBottom:18}}>
+          <div style={{fontSize:"0.68rem",letterSpacing:"0.24em",color:"#e67e22",textTransform:"uppercase",marginBottom:4}}>EXAM PREP</div>
+          <h1 style={{fontSize:"1.5rem",fontWeight:900,margin:0,background:"linear-gradient(90deg,#f0a060,#f0d080,#f0a060)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>中間考査 予想問題</h1>
+          <div style={{fontSize:"0.72rem",color:"#556",marginTop:4}}>6/7 社会 · 全{SECTIONS.reduce((s,sec)=>s+sec.questions.length,0)}問</div>
+          {screen==="quiz" && (
+            <div style={{marginTop:8,display:"flex",justifyContent:"center",gap:8,flexWrap:"wrap"}}>
+              <span style={{background:"rgba(100,120,255,0.15)",border:"1px solid rgba(100,120,255,.3)",borderRadius:20,padding:"2px 12px",fontSize:"0.76rem"}}>{idx+1}/{total}</span>
+              <span style={{background:"rgba(39,174,96,0.15)",border:"1px solid #27ae6055",borderRadius:20,padding:"2px 12px",fontSize:"0.76rem",color:"#7ef0a8"}}>✅{score.ok}</span>
+              <span style={{background:"rgba(192,57,43,0.15)",border:"1px solid #c0392b55",borderRadius:20,padding:"2px 12px",fontSize:"0.76rem",color:"#f08080"}}>❌{score.ng}</span>
             </div>
           )}
         </div>
- 
-        {/* HOME: 教科選択 */}
-        {screen === "home" && (
-          <div>
-            <p style={{ textAlign:"center", color:"#778", fontSize:"0.85rem", marginBottom:20 }}>教科を選んでください</p>
-            <div style={{ display:"flex", flexDirection:"column", gap:14 }}>
-              <div className="ch" onClick={() => { setSubject("social"); setScreen("units"); }}
-                style={{ background:"linear-gradient(135deg,rgba(16,16,32,0.95),rgba(22,22,44,0.9))", border:"1px solid #c0392b44", borderLeft:"4px solid #c0392b", borderRadius:14, padding:"20px 20px", display:"flex", alignItems:"center", gap:16 }}>
-                <span style={{ fontSize:"2.4rem" }}>🌐</span>
-                <div>
-                  <div style={{ fontWeight:800, fontSize:"1.15rem" }}>社会（歴史）</div>
-                  <div style={{ fontSize:"0.74rem", color:"#778", marginTop:3 }}>江戸〜幕末 · 全13単元 · 105語句</div>
-                </div>
-                <div style={{ marginLeft:"auto", color:"#c0392b", fontSize:"1.3rem" }}>▶</div>
-              </div>
-              <div className="ch" onClick={() => { setSubject("science"); setScreen("units"); }}
-                style={{ background:"linear-gradient(135deg,rgba(16,16,32,0.95),rgba(22,22,44,0.9))", border:"1px solid #27ae6044", borderLeft:"4px solid #27ae60", borderRadius:14, padding:"20px 20px", display:"flex", alignItems:"center", gap:16 }}>
-                <span style={{ fontSize:"2.4rem" }}>🔬</span>
-                <div>
-                  <div style={{ fontWeight:800, fontSize:"1.15rem" }}>理科（化学）</div>
-                  <div style={{ fontSize:"0.74rem", color:"#778", marginTop:3 }}>物質・化学変化・元素記号 · 全4単元 · 39語句</div>
-                </div>
-                <div style={{ marginLeft:"auto", color:"#27ae60", fontSize:"1.3rem" }}>▶</div>
-              </div>
-            </div>
-            <div style={{ marginTop:20, background:"rgba(100,120,255,0.07)", border:"1px solid rgba(100,120,255,0.15)", borderRadius:12, padding:"10px 14px", fontSize:"0.78rem", color:"#8899bb", lineHeight:1.6 }}>
-              📖 <b style={{color:"#aab"}}>フラッシュカード</b> — 語句を見て説明を確認　|　🧠 <b style={{color:"#aab"}}>クイズ</b> — 4択で答える
-            </div>
-          </div>
-        )}
- 
-        {/* UNITS: 単元選択 */}
-        {screen === "units" && (
-          <div>
-            <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:16 }}>
-              <button onClick={() => setScreen("home")} style={{ background:"rgba(100,120,255,0.1)", border:"1px solid #334", borderRadius:8, color:"#778", padding:"4px 11px", fontSize:"0.74rem", cursor:"pointer" }}>← 教科選択</button>
-              <span style={{ fontWeight:700, color: subject === "science" ? "#27ae60" : "#c0392b", fontSize:"0.9rem" }}>
-                {subject === "science" ? "🔬 理科（化学）" : "🌐 社会（歴史）"}
-              </span>
-            </div>
-            <div style={{ display:"flex", flexDirection:"column", gap:9 }}>
-              {currentUnits.map(u => (
-                <div key={u.id} style={{ background:"linear-gradient(135deg,rgba(16,16,32,0.95),rgba(22,22,44,0.9))", border:`1px solid ${u.color}33`, borderLeft:`4px solid ${u.color}`, borderRadius:13, padding:"13px 16px" }}>
-                  <div style={{ display:"flex", alignItems:"center", gap:10, marginBottom:8 }}>
-                    <span style={{ fontSize:"1.4rem" }}>{u.icon}</span>
-                    <div>
-                      <div style={{ fontWeight:700, fontSize:"0.96rem" }}>{u.label}</div>
-                      <div style={{ fontSize:"0.7rem", color:"#556", marginTop:1 }}>全{u.cards.length}語句</div>
-                    </div>
+
+        {/* HOME */}
+        {screen==="home" && (
+          <div style={{animation:"fadeIn 0.45s ease"}}>
+            <p style={{textAlign:"center",color:"#778",fontSize:"0.85rem",marginBottom:20}}>分野を選んでスタート！</p>
+            <div style={{display:"flex",flexDirection:"column",gap:11}}>
+              {SECTIONS.map(sec=>(
+                <div key={sec.id} className="ch" onClick={()=>{setActiveSection(sec);setScreen("section");}}
+                  style={{background:"linear-gradient(135deg,rgba(16,16,32,.95),rgba(22,22,44,.9))",border:`1px solid ${sec.color}44`,borderLeft:`4px solid ${sec.color}`,borderRadius:13,padding:"15px 18px",display:"flex",alignItems:"center",gap:14}}>
+                  <span style={{fontSize:"1.8rem"}}>{sec.icon}</span>
+                  <div>
+                    <div style={{fontWeight:700,fontSize:"1rem"}}>{sec.label}</div>
+                    <div style={{fontSize:"0.72rem",color:"#556",marginTop:2}}>全{sec.questions.length}問</div>
                   </div>
-                  <div style={{ display:"flex", gap:8 }}>
-                    <button className="fbtn" onClick={() => startStudy(u, "flashcard")} style={{ flex:1, padding:"8px 0", borderRadius:9, background:`${u.color}22`, border:`1px solid ${u.color}44`, color:"#ccd", fontSize:"0.8rem", fontWeight:600 }}>📖 フラッシュカード</button>
-                    <button className="fbtn" onClick={() => startStudy(u, "quiz")} style={{ flex:1, padding:"8px 0", borderRadius:9, background:`${u.color}33`, border:`1px solid ${u.color}66`, color:"#dde", fontSize:"0.8rem", fontWeight:600 }}>🧠 クイズ</button>
-                  </div>
+                  <div style={{marginLeft:"auto",color:sec.color,fontSize:"1.2rem"}}>▶</div>
                 </div>
               ))}
+              {/* 全問チャレンジ */}
+              <div className="ch" onClick={()=>startQuiz({...SECTIONS[0], questions: shuffle(SECTIONS.flatMap(s=>s.questions)), label:"全分野ミックス", icon:"🎯", color:"#e67e22"}, "all")}
+                style={{background:"linear-gradient(135deg,rgba(230,126,34,.15),rgba(230,126,34,.05))",border:"1px solid #e67e2244",borderLeft:"4px solid #e67e22",borderRadius:13,padding:"15px 18px",display:"flex",alignItems:"center",gap:14}}>
+                <span style={{fontSize:"1.8rem"}}>🎯</span>
+                <div>
+                  <div style={{fontWeight:700,fontSize:"1rem"}}>全分野ミックス</div>
+                  <div style={{fontSize:"0.72rem",color:"#778",marginTop:2}}>全{SECTIONS.reduce((s,sec)=>s+sec.questions.length,0)}問 シャッフル出題</div>
+                </div>
+                <div style={{marginLeft:"auto",color:"#e67e22",fontSize:"1.2rem"}}>▶</div>
+              </div>
             </div>
           </div>
         )}
- 
-        {/* STUDY */}
-        {screen === "study" && !finished && deck.length > 0 && (
-          <div>
-            <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:12 }}>
-              <span style={{ fontSize:"0.95rem" }}>{unit.icon}</span>
-              <span style={{ fontSize:"0.77rem", color:unitColor, fontWeight:600 }}>{unit.label}</span>
-              <span style={{ fontSize:"0.72rem", color:"#556", marginLeft:4 }}>{mode === "flashcard" ? "📖 カード" : "🧠 クイズ"}</span>
-              <button onClick={() => setScreen("units")} style={{ marginLeft:"auto", background:"rgba(100,120,255,0.1)", border:"1px solid #334", borderRadius:8, color:"#778", padding:"4px 10px", fontSize:"0.73rem", cursor:"pointer" }}>← 単元選択</button>
+
+        {/* SECTION */}
+        {screen==="section" && activeSection && (
+          <div style={{animation:"fadeIn 0.4s ease"}}>
+            <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:18}}>
+              <button className="fb" onClick={()=>setScreen("home")} style={{background:"rgba(100,120,255,.1)",border:"1px solid #334",borderRadius:8,color:"#778",padding:"4px 11px",fontSize:"0.74rem"}}>← 戻る</button>
+              <span style={{fontSize:"1rem"}}>{activeSection.icon}</span>
+              <span style={{fontWeight:700,color:activeSection.color}}>{activeSection.label}</span>
             </div>
-            <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:14 }}>
-              <div style={{ flex:1, height:4, background:"#1a1a35", borderRadius:4, overflow:"hidden" }}>
-                <div style={{ height:"100%", width:`${progress}%`, background:`linear-gradient(90deg,${unitColor},${unitColor}88)`, transition:"width 0.4s", borderRadius:4 }} />
-              </div>
-            </div>
-            <div style={{ fontSize:"0.7rem", color:"#445", marginBottom:6, textAlign:"right" }}>No.{deck[idx].no}</div>
- 
-            {mode === "flashcard" && (
-              <div>
-                <div style={{ background:`linear-gradient(135deg,${unitColor}18,${unitColor}08)`, border:`1px solid ${unitColor}44`, borderRadius:18, padding:"28px 22px", textAlign:"center", marginBottom:14, minHeight:110, display:"flex", alignItems:"center", justifyContent:"center" }}>
-                  <div style={{ fontSize:"2rem", fontWeight:900, letterSpacing:"0.04em", color:"#f0f0ff" }}>{deck[idx].word}</div>
+            <div style={{display:"flex",flexDirection:"column",gap:10}}>
+              <div className="ch" onClick={()=>startQuiz(activeSection,"normal")}
+                style={{background:`linear-gradient(135deg,${activeSection.color}22,${activeSection.color}08)`,border:`1px solid ${activeSection.color}44`,borderRadius:13,padding:"18px 20px",display:"flex",alignItems:"center",gap:14}}>
+                <span style={{fontSize:"1.8rem"}}>📝</span>
+                <div>
+                  <div style={{fontWeight:700,fontSize:"1rem"}}>全問チャレンジ</div>
+                  <div style={{fontSize:"0.72rem",color:"#778",marginTop:2}}>全{activeSection.questions.length}問 ランダム出題</div>
                 </div>
-                {!flipped ? (
-                  <button className="fbtn" onClick={() => setFlipped(true)} style={{ width:"100%", padding:"14px", borderRadius:14, background:"rgba(100,120,255,0.1)", border:"2px dashed rgba(100,120,255,0.3)", color:"#8899cc", fontWeight:600, fontSize:"0.9rem", cursor:"pointer", marginBottom:14 }}>
-                    タップして説明を見る 👁️
-                  </button>
-                ) : (
-                  <div style={{ background:"rgba(14,16,30,0.95)", border:`1px solid ${unitColor}33`, borderRadius:14, padding:"18px", marginBottom:14, animation:"flipIn 0.3s ease" }}>
-                    <p style={{ margin:0, fontSize:"0.88rem", lineHeight:1.8, color:"#c8cce0" }}>{deck[idx].desc}</p>
+                <div style={{marginLeft:"auto",color:activeSection.color,fontSize:"1.2rem"}}>▶</div>
+              </div>
+              {wrongList.length > 0 && (
+                <div className="ch" onClick={()=>startQuiz(activeSection,"wrong")}
+                  style={{background:"linear-gradient(135deg,rgba(192,57,43,.18),rgba(192,57,43,.05))",border:"1px solid #c0392b44",borderRadius:13,padding:"18px 20px",display:"flex",alignItems:"center",gap:14}}>
+                  <span style={{fontSize:"1.8rem"}}>❌</span>
+                  <div>
+                    <div style={{fontWeight:700,fontSize:"1rem"}}>間違えた問題だけ</div>
+                    <div style={{fontSize:"0.72rem",color:"#f08080",marginTop:2}}>{wrongList.length}問</div>
                   </div>
-                )}
-                {flipped && (
-                  <div style={{ display:"flex", gap:10 }}>
-                    <button className="fbtn" onClick={handleDidnt} style={{ flex:1, padding:"13px", borderRadius:12, background:"rgba(192,57,43,0.18)", border:"1px solid #c0392b66", color:"#f08080", fontWeight:700, fontSize:"0.9rem", cursor:"pointer" }}>😅 あやふや</button>
-                    <button className="fbtn" onClick={handleKnew} style={{ flex:1, padding:"13px", borderRadius:12, background:"rgba(39,174,96,0.18)", border:"1px solid #27ae6066", color:"#7ef0a8", fontWeight:700, fontSize:"0.9rem", cursor:"pointer" }}>✅ 覚えた！</button>
-                  </div>
-                )}
-              </div>
-            )}
- 
-            {mode === "quiz" && (
-              <div>
-                <div style={{ background:"linear-gradient(135deg,rgba(18,20,44,0.97),rgba(22,25,52,0.9))", border:`1px solid ${unitColor}33`, borderRadius:16, padding:"20px 18px", marginBottom:14 }}>
-                  <div style={{ fontSize:"0.68rem", color:"#445", marginBottom:6 }}>次の説明にあてはまる語句はどれ？</div>
-                  <p style={{ margin:0, fontSize:"0.9rem", lineHeight:1.8, color:"#c8cce0" }}>{deck[idx].desc}</p>
+                  <div style={{marginLeft:"auto",color:"#c0392b",fontSize:"1.2rem"}}>▶</div>
                 </div>
-                <div style={{ display:"flex", flexDirection:"column", gap:8, marginBottom:14 }}>
-                  {quizChoices.map((c, i) => {
-                    const isSel = selected && selected.word === c.word;
-                    const isAns = !!selected;
-                    const isRight = c.word === deck[idx].word;
-                    let bg = "rgba(18,20,44,0.85)", border = "1px solid #252545", color = "#ccd";
-                    if (isAns) {
-                      if (isRight) { bg = "rgba(39,174,96,0.18)"; border = "1px solid #27ae6077"; color = "#7ef0a8"; }
-                      else if (isSel) { bg = "rgba(192,57,43,0.18)"; border = "1px solid #c0392b77"; color = "#f08080"; }
-                    }
-                    return (
-                      <div key={i} className={isAns ? "" : "cb"} onClick={() => handleChoice(c)}
-                        style={{ background:bg, border, borderRadius:11, padding:"12px 14px", color, display:"flex", alignItems:"center", gap:10, fontSize:"0.92rem", opacity: isAns && !isRight && !isSel ? 0.38 : 1 }}>
-                        <span style={{ width:26, height:26, borderRadius:7, flexShrink:0, background: isAns ? (isRight ? "#27ae60" : isSel ? "#c0392b" : "#1a1a35") : "#1a1a35", border: isAns ? "none" : "1px solid #334", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"0.76rem", fontWeight:700, color: isAns ? "#fff" : "#556" }}>
-                          {isAns ? (isRight ? "○" : isSel ? "✕" : "") : ["A","B","C","D"][i]}
-                        </span>
-                        {c.word}
-                      </div>
-                    );
-                  })}
-                </div>
-                {selected && (
-                  <button className="fbtn" onClick={goNext} style={{ width:"100%", padding:"13px", borderRadius:12, background:`linear-gradient(135deg,${unitColor},${unitColor}bb)`, border:"none", color:"#fff", fontWeight:700, fontSize:"0.95rem", cursor:"pointer", animation:"pulse 2s infinite" }}>
-                    {idx + 1 >= totalCards ? "結果を見る 🏆" : "次へ →"}
-                  </button>
-                )}
-              </div>
-            )}
-          </div>
-        )}
- 
-        {/* FINISHED */}
-        {screen === "study" && finished && (
-          <div style={{ textAlign:"center", paddingTop:20 }}>
-            <div style={{ fontSize:"3.5rem", marginBottom:10 }}>{score.ok / totalCards >= 0.8 ? "🏆" : score.ok / totalCards >= 0.5 ? "👍" : "📚"}</div>
-            <h2 style={{ fontSize:"1.3rem", fontWeight:900, marginBottom:5, color:unitColor }}>{unit.label} 完了！</h2>
-            {mode === "quiz" ? (
-              <div>
-                <p style={{ fontSize:"1.9rem", fontWeight:900, marginBottom:4 }}>{score.ok} <span style={{ fontSize:"0.95rem", color:"#778" }}>/ {totalCards} 問正解</span></p>
-                <p style={{ color:"#aab", fontSize:"0.85rem", marginBottom:22 }}>正解率 {Math.round((score.ok / totalCards) * 100)}%　{score.ok / totalCards >= 0.8 ? "すばらしい！🎉" : score.ok / totalCards >= 0.5 ? "なかなか👍" : "もう一度復習しよう📖"}</p>
-              </div>
-            ) : (
-              <div>
-                <p style={{ fontSize:"1.4rem", fontWeight:700, marginBottom:4 }}>✅ {score.ok}語 / ❌ {score.ng}語</p>
-                <p style={{ color:"#aab", fontSize:"0.85rem", marginBottom:22 }}>全{totalCards}語句を確認しました！</p>
-              </div>
-            )}
-            <div style={{ display:"flex", gap:9, justifyContent:"center", flexWrap:"wrap" }}>
-              <button className="fbtn" onClick={() => startStudy(unit, mode)} style={{ padding:"11px 18px", borderRadius:11, background:`linear-gradient(135deg,${unitColor},${unitColor}99)`, border:"none", color:"#fff", fontWeight:700, fontSize:"0.88rem", cursor:"pointer" }}>もう一度</button>
-              <button className="fbtn" onClick={() => startStudy(unit, mode === "flashcard" ? "quiz" : "flashcard")} style={{ padding:"11px 18px", borderRadius:11, background:"rgba(100,120,255,0.18)", border:"1px solid rgba(100,120,255,0.35)", color:"#aab", fontWeight:700, fontSize:"0.88rem", cursor:"pointer" }}>{mode === "flashcard" ? "🧠 クイズに挑戦" : "📖 カードで復習"}</button>
-              <button className="fbtn" onClick={() => setScreen("units")} style={{ padding:"11px 18px", borderRadius:11, background:"rgba(50,50,70,0.5)", border:"1px solid #334", color:"#778", fontWeight:700, fontSize:"0.88rem", cursor:"pointer" }}>← 単元選択</button>
+              )}
             </div>
           </div>
         )}
+
+        {/* QUIZ */}
+        {screen==="quiz" && idx < deck.length && (
+          <div style={{animation:"fadeIn 0.35s ease"}}>
+            <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}>
+              <span style={{fontSize:"0.9rem"}}>{activeSection.icon}</span>
+              <span style={{fontSize:"0.77rem",color:color,fontWeight:600}}>{activeSection.label}</span>
+              <button className="fb" onClick={()=>setScreen("section")} style={{marginLeft:"auto",background:"rgba(100,120,255,.1)",border:"1px solid #334",borderRadius:8,color:"#778",padding:"4px 10px",fontSize:"0.73rem"}}>← 中断</button>
+            </div>
+            <div style={{height:4,background:"#1a1a35",borderRadius:4,marginBottom:14,overflow:"hidden"}}>
+              <div style={{height:"100%",width:`${(idx/total)*100}%`,background:`linear-gradient(90deg,${color},${color}88)`,transition:"width 0.4s",borderRadius:4}} />
+            </div>
+            {/* 問題 */}
+            <div style={{background:"linear-gradient(135deg,rgba(18,20,44,.97),rgba(22,25,52,.9))",border:`1px solid ${color}33`,borderRadius:16,padding:"20px 18px",marginBottom:14}}>
+              <div style={{fontSize:"0.68rem",color:"#445",marginBottom:8}}>Q{idx+1}.</div>
+              <p style={{margin:0,fontSize:"1.0rem",lineHeight:1.85,color:"#d8d8f0",fontWeight:500}}>{deck[idx].q}</p>
+            </div>
+            {/* 選択肢 */}
+            <div style={{display:"flex",flexDirection:"column",gap:8,marginBottom:14}}>
+              {deck[idx]._choices.map((ch,i)=>{
+                const answered = selected!==null;
+                const isRight = ch===deck[idx].a;
+                const isSel = selected===ch;
+                let bg="rgba(18,20,44,.85)",border="1px solid #252545",col="#ccd";
+                if(answered){
+                  if(isRight){bg="rgba(39,174,96,.18)";border="1px solid #27ae6077";col="#7ef0a8";}
+                  else if(isSel){bg="rgba(192,57,43,.18)";border="1px solid #c0392b77";col="#f08080";}
+                }
+                return (
+                  <div key={i} className={answered?"":"cb"} onClick={()=>handleChoice(ch)}
+                    style={{background:bg,border,borderRadius:11,padding:"13px 15px",color:col,display:"flex",alignItems:"center",gap:10,fontSize:"0.9rem",opacity:answered&&!isRight&&!isSel?.38:1}}>
+                    <span style={{width:26,height:26,borderRadius:7,flexShrink:0,background:answered?(isRight?"#27ae60":isSel?"#c0392b":"#1a1a35"):"#1a1a35",border:answered?"none":"1px solid #334",display:"flex",alignItems:"center",justifyContent:"center",fontSize:"0.75rem",fontWeight:700,color:answered?"#fff":"#556"}}>
+                      {answered?(isRight?"○":isSel?"✕":""):["A","B","C","D"][i]}
+                    </span>
+                    {ch}
+                  </div>
+                );
+              })}
+            </div>
+            {/* 正誤 + 解説 */}
+            {selected!==null && (
+              <div>
+                <div style={{background:selected===deck[idx].a?"rgba(39,174,96,.11)":"rgba(192,57,43,.11)",border:`1px solid ${selected===deck[idx].a?"#27ae60":"#c0392b"}55`,borderRadius:12,padding:"12px 15px",marginBottom:10,animation:"fadeIn 0.25s ease"}}>
+                  <div style={{fontWeight:700,fontSize:"1rem",marginBottom:showExp?6:0,color:selected===deck[idx].a?"#7ef0a8":"#f08080"}}>
+                    {selected===deck[idx].a?"🎉 正解！":`😅 不正解… 正解は「${deck[idx].a}」`}
+                  </div>
+                  {showExp && <p style={{margin:0,fontSize:"0.82rem",color:"#aab",lineHeight:1.75}}>{deck[idx].exp}</p>}
+                </div>
+                {!showExp && (
+                  <button className="fb" onClick={()=>setShowExp(true)} style={{width:"100%",padding:"10px",borderRadius:10,background:"rgba(100,120,255,.1)",border:"1px dashed rgba(100,120,255,.25)",color:"#8899cc",fontSize:"0.82rem",marginBottom:8}}>
+                    解説を見る 📖
+                  </button>
+                )}
+                <button className="fb" onClick={goNext} style={{width:"100%",padding:"13px",borderRadius:12,background:`linear-gradient(135deg,${color},${color}bb)`,border:"none",color:"#fff",fontWeight:700,fontSize:"0.95rem",animation:"pulse 2s infinite"}}>
+                  {idx+1>=total?"結果を見る 🏆":"次へ →"}
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* RESULT */}
+        {screen==="result" && (
+          <div style={{animation:"fadeIn 0.4s ease",textAlign:"center",paddingTop:20}}>
+            <div style={{fontSize:"3.5rem",marginBottom:10}}>{score.ok/total>=0.8?"🏆":score.ok/total>=0.5?"👍":"📚"}</div>
+            <h2 style={{fontSize:"1.3rem",fontWeight:900,marginBottom:5,color:color}}>{activeSection.label} 完了！</h2>
+            <p style={{fontSize:"2rem",fontWeight:900,marginBottom:4}}>{score.ok}<span style={{fontSize:"0.95rem",color:"#778"}}> / {total} 問正解</span></p>
+            <p style={{color:"#aab",fontSize:"0.85rem",marginBottom:6}}>正解率 {Math.round((score.ok/total)*100)}%</p>
+            {wrongList.length>0 && (
+              <p style={{color:"#f08080",fontSize:"0.82rem",marginBottom:22}}>❌ {wrongList.length}問間違えました。復習しましょう！</p>
+            )}
+            {wrongList.length===0 && <p style={{color:"#7ef0a8",fontSize:"0.82rem",marginBottom:22}}>🎉 全問正解！完璧です！</p>}
+            <div style={{display:"flex",gap:9,justifyContent:"center",flexWrap:"wrap"}}>
+              <button className="fb" onClick={()=>startQuiz(activeSection,"normal")} style={{padding:"11px 18px",borderRadius:11,background:`linear-gradient(135deg,${color},${color}99)`,border:"none",color:"#fff",fontWeight:700,fontSize:"0.88rem"}}>もう一度</button>
+              {wrongList.length>0 && (
+                <button className="fb" onClick={()=>startQuiz(activeSection,"wrong")} style={{padding:"11px 18px",borderRadius:11,background:"rgba(192,57,43,.25)",border:"1px solid #c0392b55",color:"#f08080",fontWeight:700,fontSize:"0.88rem"}}>❌ 間違えた問題だけ</button>
+              )}
+              <button className="fb" onClick={()=>setScreen("home")} style={{padding:"11px 18px",borderRadius:11,background:"rgba(50,50,70,.5)",border:"1px solid #334",color:"#778",fontWeight:700,fontSize:"0.88rem"}}>← 分野選択</button>
+            </div>
+          </div>
+        )}
+
       </div>
     </div>
   );
 }
- 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<AnkiApp />);
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
 </script>
 </body>
 </html>
